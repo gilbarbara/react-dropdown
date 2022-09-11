@@ -3,33 +3,36 @@ module.exports = {
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
   coverageThreshold: {
     global: {
-      branches: 75,
-      functions: 75,
-      lines: 75,
-      statements: 75,
-    },
-  },
-  globals: {
-    'ts-jest': {
-      tsconfig: 'test/tsconfig.json',
-      diagnostics: {
-        ignoreCodes: ['TS151001'],
-      },
+      branches: 70,
+      functions: 80,
+      lines: 80,
+      statements: 80,
     },
   },
   moduleDirectories: ['node_modules', 'src'],
-  moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx'],
+  moduleNameMapper: {
+    '^~/(.*)$': '<rootDir>/src/$1',
+  },
   preset: 'ts-jest',
   setupFilesAfterEnv: ['<rootDir>/test/__setup__/setupFilesAfterEnv.ts'],
   snapshotSerializers: ['jest-serializer-html', '@emotion/jest/serializer'],
   testEnvironment: 'jsdom',
   testEnvironmentOptions: {
+    resources: 'usable',
     url: 'http://localhost:3000/',
   },
   testMatch: null,
   testRegex: '/test/.*?\\.(test|spec)\\.tsx?$',
   transform: {
-    '\\.[jt]sx?$': 'esbuild-jest',
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: 'test/tsconfig.json',
+        diagnostics: {
+          ignoreCodes: ['TS151001'],
+        },
+      },
+    ],
   },
   verbose: false,
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],

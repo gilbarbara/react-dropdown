@@ -14,15 +14,16 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.js"
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
   },
   "files": [
     "dist",
-    "src",
-    "types.d.ts"
+    "src"
   ],
-  "types": "types.d.ts",
+  "types": "dist",
   "sideEffects": false,
   "license": "MIT",
   "keywords": [
@@ -32,15 +33,16 @@
     "dropdown"
   ],
   "peerDependencies": {
-    "react": ">=16.8.6",
-    "react-dom": ">=16.8.6"
+    "react": "17 - 18",
+    "react-dom": "17 - 18"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "^1.2.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@gilbarbara/deep-equal": "^0.1.1",
-    "prop-types": "^15.8.1"
+    "exenv": "^1.2.2",
+    "react-innertext": "^1.1.5"
   },
   "devDependencies": {
     "@emotion/jest": "^11.10.0",
@@ -48,42 +50,48 @@
     "@gilbarbara/eslint-config": "^0.3.5",
     "@gilbarbara/prettier-config": "^0.1.0",
     "@gilbarbara/tsconfig": "^0.1.1",
-    "@size-limit/preset-small-lib": "^8.0.1",
+    "@size-limit/preset-big-lib": "^8.1.0",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.3.0",
-    "@types/jest": "^29.0.0",
-    "@types/node": "^18.7.14",
-    "@types/react": "^18.0.18",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/exenv": "^1.2.0",
+    "@types/jest": "^29.0.3",
+    "@types/node": "^18.7.21",
+    "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "del-cli": "^5.0.0",
-    "esbuild-jest": "^0.5.0",
     "husky": "^8.0.1",
     "is-ci-cli": "^2.2.0",
-    "jest": "^29.0.2",
-    "jest-environment-jsdom": "^29.0.2",
+    "jest": "^29.0.3",
+    "jest-environment-jsdom": "^29.0.3",
     "jest-extended": "^3.1.0",
     "jest-serializer-html": "^7.1.0",
-    "jest-watch-typeahead": "^2.1.1",
+    "jest-watch-typeahead": "^2.2.0",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "replace": "^1.2.1",
     "repo-tools": "^0.2.2",
-    "size-limit": "^8.0.1",
-    "ts-jest": "^28.0.8",
+    "size-limit": "^8.1.0",
+    "ts-jest": "^29.0.2",
     "ts-node": "^10.9.1",
-    "typescript": "^4.8.2"
+    "tsconfig-replace-paths": "^0.0.11",
+    "type-fest": "^3.0.0",
+    "typescript": "^4.8.3"
   },
   "scripts": {
-    "build": "npm run clean && esbuilder --input=./src/index.jsx --cjs --esm",
+    "build": "npm run clean && esbuilder --input=./src/index.tsx --cjs --esm && npm run build:types",
+    "build:types": "tsc --emitDeclarationOnly && tsconfig-replace-paths --project tsconfig.types.json",
     "clean": "del dist/*",
+    "lint": "eslint --cache --fix src",
     "test": "is-ci \"test:coverage\" \"test:watch\"",
     "test:coverage": "jest --bail --coverage",
     "test:watch": "jest --watchAll --verbose",
-    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
     "format": "prettier \"**/*.{js,jsx,json,yml,yaml,css,less,scss,ts,tsx,md,graphql,mdx}\" --write",
-    "validate": "npm run lint && npm run test:coverage && npm run build && npm run size",
+    "validate": "npm run lint && npm run typecheck && npm run test:coverage && npm run build && npm run size",
     "size": "size-limit",
+    "prepublishOnly": "npm run validate",
     "prepare": "husky install"
   },
   "eslintConfig": {
@@ -99,20 +107,7 @@
           "no-console": "off"
         }
       }
-    ],
-    "env": {
-      "commonjs": true,
-      "es6": true,
-      "browser": true
-    },
-    "rules": {
-      "default-param-last": "off",
-      "@typescript-eslint/no-non-null-assertion": "off",
-      "react/forbid-prop-types": "off",
-      "react/require-default-props": "off",
-      "react/sort-comp": "off",
-      "unicorn/prefer-includes": "off"
-    }
+    ]
   },
   "eslintIgnore": [
     "demo"
@@ -122,12 +117,12 @@
     {
       "name": "cjs",
       "path": "./dist/index.js",
-      "limit": "18 KB"
+      "limit": "22 KB"
     },
     {
       "name": "esm",
       "path": "./dist/index.mjs",
-      "limit": "18 KB"
+      "limit": "22 KB"
     }
   ]
 }
