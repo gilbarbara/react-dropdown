@@ -1,4 +1,3 @@
-/* eslint-disable react/function-component-definition */
 import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 

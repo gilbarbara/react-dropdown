@@ -1,4 +1,12 @@
-import { ChangeEvent, CSSProperties, KeyboardEvent, MouseEvent, ReactNode, RefObject } from 'react';
+import {
+  ChangeEvent,
+  CSSProperties,
+  KeyboardEvent,
+  MouseEvent,
+  ReactElement,
+  ReactNode,
+  RefObject,
+} from 'react';
 
 export type AnyObject<T = any> = Record<string, T>;
 
@@ -110,7 +118,7 @@ export interface Props {
   /**
    * Custom Clear component.
    */
-  clearComponent?: (props: ComponentProps) => JSX.Element;
+  clearComponent?: (props: ComponentProps) => ReactElement;
   /**
    * Clear the input when the menu closes.
    * @default true
@@ -138,7 +146,7 @@ export interface Props {
   /**
    * Custom Content component.
    */
-  contentComponent?: (props: ComponentProps) => JSX.Element;
+  contentComponent?: (props: ComponentProps) => ReactElement;
   /**
    * Create an option from the search string if no results are found.
    * (Fires the onCreate callback)
@@ -158,7 +166,7 @@ export interface Props {
   /**
    * Custom Handle component.
    */
-  handleComponent?: (props: ComponentProps) => JSX.Element;
+  handleComponent?: (props: ComponentProps) => ReactElement;
   /**
    * Add an input with type hidden to the component with the selected value(s).
    */
@@ -171,7 +179,7 @@ export interface Props {
   /**
    * Custom Input component.
    */
-  inputComponent?: (props: InputComponentProps) => JSX.Element;
+  inputComponent?: (props: InputComponentProps) => ReactElement;
   /**
    * Keep the selected item(s) in the list.
    * @default true
@@ -184,7 +192,7 @@ export interface Props {
   /**
    * Custom Loader component.
    */
-  loaderComponent?: (props: Pick<ComponentProps, 'props'>) => JSX.Element;
+  loaderComponent?: (props: Pick<ComponentProps, 'props'>) => ReactElement;
   /**
    * Show a spinner while loading data.
    * @default false
@@ -193,11 +201,11 @@ export interface Props {
   /**
    * Custom Menu component.
    */
-  menuComponent?: (props: ComponentProps) => JSX.Element;
+  menuComponent?: (props: ComponentProps) => ReactElement;
   /**
    * Custom MenuItem component.
    */
-  menuItemComponent?: (props: ItemComponentProps) => JSX.Element;
+  menuItemComponent?: (props: ItemComponentProps) => ReactElement;
   /**
    * The menu position.
    * @default 'bottom'
@@ -211,7 +219,7 @@ export interface Props {
   /**
    * Custom NoData component.
    */
-  noDataComponent?: (props: ComponentProps) => JSX.Element;
+  noDataComponent?: (props: ComponentProps) => ReactElement;
   /**
    * Values change callback.
    */
@@ -247,7 +255,7 @@ export interface Props {
   /**
    * Custom Option component.
    */
-  optionComponent?: (props: OptionComponentProps) => JSX.Element;
+  optionComponent?: (props: OptionComponentProps) => ReactElement;
   /**
    * The dropdown options.
    * @required
@@ -280,7 +288,7 @@ export interface Props {
   /**
    * Custom Separator component.
    */
-  separatorComponent?: (props: ComponentProps) => JSX.Element;
+  separatorComponent?: (props: ComponentProps) => ReactElement;
   /**
    * Show a button to clear the selection.
    * @default false
