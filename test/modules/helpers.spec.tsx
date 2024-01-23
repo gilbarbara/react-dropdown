@@ -1,4 +1,17 @@
-import { getCursor, getOptionData, isNumber, matchOptions, parseNumber } from '~/modules/helpers';
+import {
+  canUseDOM,
+  debounce,
+  getAllOptions,
+  getComponentMinHeight,
+  getCursor,
+  getLabels,
+  getOptionData,
+  isNumber,
+  isString,
+  matchOptions,
+  parseNumber,
+  px,
+} from '~/modules/helpers';
 
 const options = [
   { label: '💍 One ring to rule them all', value: 'rule' },
@@ -8,14 +21,41 @@ const options = [
   { label: 'In the darkness bind them', value: 'bind', disabled: true },
 ];
 
-describe('getOptionData', () => {
-  it.each([
-    { input: { label: 'A', value: 'a' }, path: 'label', expected: 'A' },
-    { input: { label: <p>AA</p>, value: 'a' }, path: 'label', expected: 'AA' },
-    { input: { label: 'AB', value: 'a' }, path: 'length', expected: '' },
-  ])('should return $expected for path "$path"', ({ expected, input, path }) => {
-    // @ts-expect-error
-    expect(getOptionData(input, path)).toBe(expected);
+describe('canUseDOM', () => {
+  it('should return true', () => {
+    expect(canUseDOM()).toBe(true);
+  });
+});
+
+describe('debounce', () => {
+  const mockFn = vi.fn();
+
+  it('should only call the callback function once', async () => {
+    const debouncedFn = debounce(mockFn, 50);
+
+    debouncedFn();
+    debouncedFn();
+    debouncedFn();
+
+    await new Promise(r => {
+      window.setTimeout(r, 50);
+    });
+
+    expect(mockFn).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('getAllOptions', () => {
+  it('should return all valid options', () => {
+    const values = options.filter(option => !option.disabled);
+
+    expect(getAllOptions(options, values)).toHaveLength(3);
+  });
+});
+
+describe('getComponentMinHeight', () => {
+  it('should return the minHeight', () => {
+    expect(getComponentMinHeight(100)).toBe('98px');
   });
 });
 
@@ -42,12 +82,44 @@ describe('getCursor', () => {
   });
 });
 
+describe('getLabels', () => {
+  it('should return the default labels', () => {
+    expect(getLabels()).toEqual({
+      clear: 'Clear',
+      create: 'Add {search}',
+      disabled: 'disabled',
+      noData: 'No data',
+      toggle: 'Toggle',
+    });
+  });
+});
+
+describe('getOptionData', () => {
+  it.each([
+    { input: { label: 'A', value: 'a' }, path: 'label', expected: 'A' },
+    { input: { label: <p>AA</p>, value: 'a' }, path: 'label', expected: 'AA' },
+    { input: { label: 'AB', value: 'a' }, path: 'length', expected: '' },
+  ])('should return $expected for path "$path"', ({ expected, input, path }) => {
+    // @ts-expect-error
+    expect(getOptionData(input, path)).toBe(expected);
+  });
+});
+
 describe('isNumber', () => {
   it.each([
     { input: '1px', expected: false },
     { input: 1, expected: true },
   ])('should return $expected for $input', ({ expected, input }) => {
     expect(isNumber(input)).toBe(expected);
+  });
+});
+
+describe('isString', () => {
+  it.each([
+    { input: '1px', expected: true },
+    { input: 1, expected: false },
+  ])('should return $expected for $input', ({ expected, input }) => {
+    expect(isString(input)).toBe(expected);
   });
 });
 
@@ -68,5 +140,12 @@ describe('parseNumber', () => {
     { input: 2, expected: 2 },
   ])('should parse $input to $expected', ({ expected, input }) => {
     expect(parseNumber(input)).toBe(expected);
+  });
+});
+
+describe('px', () => {
+  it('should return the value with px', () => {
+    expect(px(1)).toBe('1px');
+    expect(px('1px')).toBe('1px');
   });
 });
