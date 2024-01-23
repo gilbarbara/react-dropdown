@@ -1,11 +1,12 @@
 import innerText from 'react-innertext';
-import { canUseDOM as canUseDOMBool } from 'exenv';
 
 import { defaultProps } from '~/config';
 
 import { ComponentProps, Labels, Option, OptionKeys, Position, Styles } from '~/types';
 
-export const canUseDOM = () => canUseDOMBool;
+export function canUseDOM(): boolean {
+  return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+}
 
 export function debounce(fn: (...input: any[]) => void, delay = 0) {
   let timerId: number;
