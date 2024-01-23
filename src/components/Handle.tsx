@@ -2,10 +2,10 @@ import { MouseEvent } from 'react';
 import isPropValid from '@emotion/is-prop-valid';
 import styled from '@emotion/styled';
 
+import { SLUG } from '~/config';
+
 import { getTextColor } from '~/modules/colors';
 import { getComponentMinHeight } from '~/modules/helpers';
-
-import { SLUG } from '~/config';
 
 import Arrow from '~/icons/Arrow';
 import { ComponentProps, Styles } from '~/types';

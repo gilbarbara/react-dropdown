@@ -3,6 +3,8 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import isEqual from '@gilbarbara/deep-equal';
 
+import { defaultProps, SLUG, styledOptions } from '~/config';
+
 import { hexToRGBA } from '~/modules/colors';
 import {
   canUseDOM,
@@ -16,8 +18,6 @@ import {
   matchOptions,
   px,
 } from '~/modules/helpers';
-
-import { defaultProps, SLUG, styledOptions } from '~/config';
 
 import Clear from '~/components/Clear';
 import Content from '~/components/Content';
@@ -295,6 +295,7 @@ export class Dropdown extends Component<Props, State> {
     }
   };
 
+  // eslint-disable-next-line react/sort-comp
   handleResize = debounce(() => {
     this.updateDropdownBounds();
   }, 150);

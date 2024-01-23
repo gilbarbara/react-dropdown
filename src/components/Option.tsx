@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { defaultProps, SLUG } from '~/config';
+
 import { getTextColor } from '~/modules/colors';
 import { getOptionData, getStyles } from '~/modules/helpers';
-
-import { defaultProps, SLUG } from '~/config';
 
 import Times from '~/icons/Times';
 import { Direction, OptionComponentProps, Styles } from '~/types';

@@ -2,10 +2,10 @@ import { MouseEvent, useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { SLUG } from '~/config';
+
 import { getTextColor, hexToRGBA } from '~/modules/colors';
 import { getOptionData } from '~/modules/helpers';
-
-import { SLUG } from '~/config';
 
 import { ItemComponentProps, Props, Styles } from '~/types';
 

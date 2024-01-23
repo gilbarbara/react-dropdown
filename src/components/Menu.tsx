@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { SLUG } from '~/config';
+
 import { hexToRGBA } from '~/modules/colors';
 import { getPosition, px } from '~/modules/helpers';
-
-import { SLUG } from '~/config';
 
 import { AnyObject, ComponentProps, Position, Styles } from '~/types';
 
