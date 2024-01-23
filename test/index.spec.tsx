@@ -19,23 +19,21 @@ import {
   Separator,
 } from './__fixtures__';
 
-jest.useFakeTimers();
+vi.useFakeTimers();
 
-const mockOnChange = jest.fn();
-const mockOnClickSelector = jest.fn();
-const mockOnClose = jest.fn();
-const mockOnClearAll = jest.fn();
-const mockOnSelectAll = jest.fn();
-const mockOnCreate = jest.fn();
-const mockOnOpen = jest.fn();
-
-Element.prototype.scrollIntoView = jest.fn();
+const mockOnChange = vi.fn();
+const mockOnClickSelector = vi.fn();
+const mockOnClose = vi.fn();
+const mockOnClearAll = vi.fn();
+const mockOnSelectAll = vi.fn();
+const mockOnCreate = vi.fn();
+const mockOnOpen = vi.fn();
 
 describe('Dropdown', () => {
   let values: Option[] = [];
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     values = [];
   });
 
@@ -44,7 +42,7 @@ describe('Dropdown', () => {
     values = data;
   };
 
-  test('basic functionality', () => {
+  it('basic functionality', () => {
     render(<Dropdown onChange={handleOnChange} options={options} values={values} />);
 
     // open the menu
@@ -61,7 +59,7 @@ describe('Dropdown', () => {
     expect(mockOnChange).toHaveBeenLastCalledWith(options.slice(0, 1));
   });
 
-  test('with multiple items', async () => {
+  it('with multiple items', async () => {
     render(
       <Dropdown
         loading
@@ -122,7 +120,7 @@ describe('Dropdown', () => {
     expect(screen.getAllByTestId('DropdownOption')).toHaveLength(2);
   });
 
-  test('with keyboard navigation', () => {
+  it('with keyboard navigation', () => {
     render(
       <Dropdown multi onChange={handleOnChange} options={options} searchable values={values} />,
     );
@@ -200,7 +198,7 @@ describe('Dropdown', () => {
     expect(screen.queryByTestId('DropdownMenu')).not.toBeInTheDocument();
   });
 
-  test('with searchFn', () => {
+  it('with searchFn', () => {
     render(
       <Dropdown
         multi
@@ -228,7 +226,7 @@ describe('Dropdown', () => {
     expect(screen.getByTestId('DropdownMenuItem')).toHaveTextContent('One');
   });
 
-  test('with open, onClickSelector, and closeOnSelect', () => {
+  it('with open, onClickSelector, and closeOnSelect', () => {
     const props = {
       closeOnSelect: true,
       onChange: handleOnChange,
@@ -263,7 +261,7 @@ describe('Dropdown', () => {
     expect(screen.queryByTestId('DropdownMenu')).not.toBeInTheDocument();
   });
 
-  test('with hiddenInput', () => {
+  it('with hiddenInput', () => {
     const props = {
       hiddenInput: {
         name: 'test',
@@ -292,7 +290,7 @@ describe('Dropdown', () => {
     expect(input).toHaveValue('One');
   });
 
-  test('with handlers and rerender', () => {
+  it('with handlers and rerender', () => {
     const { rerender } = render(
       <Dropdown
         onChange={mockOnChange}
@@ -331,7 +329,7 @@ describe('Dropdown', () => {
     expect(mockOnClose).toHaveBeenCalled();
   });
 
-  test('with scroll and resize', async () => {
+  it('with scroll and resize', async () => {
     render(<Dropdown closeOnScroll onClose={mockOnClose} options={options} values={values} />);
 
     // open the menu
@@ -343,14 +341,14 @@ describe('Dropdown', () => {
     fireEvent.scroll(window, { target: { scrollY: 100 } });
 
     await act(async () => {
-      jest.runOnlyPendingTimers();
+      vi.runOnlyPendingTimers();
     });
 
     expect(screen.queryByTestId('DropdownMenu')).not.toBeInTheDocument();
     expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
 
-  test('with custom components', () => {
+  it('with custom components', () => {
     render(
       <Dropdown
         clearComponent={Clear}
@@ -400,7 +398,7 @@ describe('Dropdown', () => {
     expect(mockOnChange).toHaveBeenLastCalledWith(options.slice(0, 1));
   });
 
-  test('with custom containers', () => {
+  it('with custom containers', () => {
     render(
       <Dropdown
         contentComponent={Content}
@@ -441,7 +439,7 @@ describe('Dropdown', () => {
     expect(screen.queryByTestId('CustomMenu')).not.toBeInTheDocument();
   });
 
-  test('with custom containers and create', () => {
+  it('with custom containers and create', () => {
     render(
       <Dropdown
         create

@@ -37,19 +37,6 @@ export function getAllOptions(options: Option[], values: Option[]) {
   return nextValues;
 }
 
-export function getOptionData(input: Option, key: 'label'): string;
-export function getOptionData(input: Option, key: 'value'): string | number;
-
-export function getOptionData(input: Option, key: OptionKeys): string | number {
-  const value = input[key];
-
-  if (!isString(value) && !isNumber(value)) {
-    return innerText(value);
-  }
-
-  return value;
-}
-
 export function getComponentMinHeight(minHeight: number, amount = 2): string {
   return px(minHeight - amount);
 }
@@ -114,6 +101,19 @@ export function getLabels(labels?: Partial<Labels>): Labels {
     noData,
     toggle,
   };
+}
+
+export function getOptionData(input: Option, key: 'label'): string;
+export function getOptionData(input: Option, key: 'value'): string | number;
+
+export function getOptionData(input: Option, key: OptionKeys): string | number {
+  const value = input[key];
+
+  if (!isString(value) && !isNumber(value)) {
+    return innerText(value);
+  }
+
+  return value;
 }
 
 export function getPosition(props: ComponentProps, list: HTMLDivElement | null): Position {
@@ -199,18 +199,6 @@ export function isString(input: any): input is string {
   return typeof input === 'string';
 }
 
-export function parseNumber(input: string | number) {
-  if (isString(input)) {
-    return parseInt(input, 10);
-  }
-
-  return input;
-}
-
-export function px(input: string | number): string {
-  return isString(input) ? input : `${input}px`;
-}
-
 export function matchOptions(options: Option[], search: string | number, strict = true) {
   return options.some(d => {
     const label = strict
@@ -222,4 +210,16 @@ export function matchOptions(options: Option[], search: string | number, strict 
 
     return label || value;
   });
+}
+
+export function parseNumber(input: string | number) {
+  if (isString(input)) {
+    return parseInt(input, 10);
+  }
+
+  return input;
+}
+
+export function px(input: string | number): string {
+  return isString(input) ? input : `${input}px`;
 }
