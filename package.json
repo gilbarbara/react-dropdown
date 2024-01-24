@@ -23,7 +23,7 @@
     "dist",
     "src"
   ],
-  "types": "dist",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
   "keywords": [
@@ -45,11 +45,11 @@
   },
   "devDependencies": {
     "@emotion/jest": "^11.11.0",
-    "@gilbarbara/esbuilder": "^0.2.0",
     "@gilbarbara/eslint-config": "^0.7.3",
+    "@gilbarbara/node-helpers": "^0.1.0",
     "@gilbarbara/prettier-config": "^1.0.0",
     "@gilbarbara/tsconfig": "^0.2.3",
-    "@size-limit/preset-big-lib": "^11.0.2",
+    "@size-limit/preset-small-lib": "^11.0.2",
     "@testing-library/jest-dom": "^6.2.1",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.2",
@@ -75,12 +75,12 @@
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "tsconfig-replace-paths": "^0.0.14",
+    "tsup": "^8.0.1",
     "type-fest": "^4.10.0",
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "build": "npm run clean && esbuilder --input=./src/index.tsx --cjs --esm && npm run build:types",
-    "build:types": "tsc --emitDeclarationOnly && tsconfig-replace-paths --project tsconfig.types.json",
+    "build": "npm run clean && tsup && ts-node scripts/fix-cjs.ts",
     "clean": "del dist/*",
     "lint": "eslint --fix src test",
     "test": "is-ci \"test:coverage\" \"test:watch\"",
@@ -92,6 +92,21 @@
     "size": "size-limit",
     "prepublishOnly": "npm run validate",
     "prepare": "husky install"
+  },
+  "tsup": {
+    "banner": {
+      "js": "\"use client\";"
+    },
+    "dts": true,
+    "entry": [
+      "src/index.tsx"
+    ],
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "sourcemap": true,
+    "splitting": false
   },
   "eslintConfig": {
     "extends": [
@@ -116,7 +131,7 @@
   "prettier": "@gilbarbara/prettier-config",
   "size-limit": [
     {
-      "name": "cjs",
+      "name": "commonjs",
       "path": "./dist/index.js",
       "limit": "22 KB"
     },
