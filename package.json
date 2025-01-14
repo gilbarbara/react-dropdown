@@ -89,7 +89,7 @@
     "validate": "npm run lint && npm run typecheck && npm run test:coverage && npm run build && npm run size",
     "size": "size-limit",
     "prepublishOnly": "npm run validate",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "tsup": {
     "banner": {
