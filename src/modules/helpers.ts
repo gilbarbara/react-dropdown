@@ -5,7 +5,7 @@ import { defaultProps } from '~/config';
 import { ComponentProps, Labels, Option, OptionKeys, Position, Styles } from '~/types';
 
 export function canUseDOM(): boolean {
-  return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+  return !!window?.document.createElement;
 }
 
 export function debounce(fn: (...input: any[]) => void, delay = 0) {
@@ -170,7 +170,7 @@ export function getStyles(styles?: Partial<Styles>): Styles {
     disabledItemBgColor,
     disabledItemColor,
     gap,
-    hoverColor: hoverColor || color,
+    hoverColor: hoverColor ?? color,
     hoverOpacity,
     menuMaxHeight,
     minHeight,
@@ -181,6 +181,10 @@ export function getStyles(styles?: Partial<Styles>): Styles {
   };
 }
 
+export function isNumber(input: any): input is number {
+  return typeof input === 'number';
+}
+
 export function isomorphicWindow() {
   if (typeof window === 'undefined') {
     return {
@@ -189,10 +193,6 @@ export function isomorphicWindow() {
   }
 
   return window;
-}
-
-export function isNumber(input: any): input is number {
-  return typeof input === 'number';
 }
 
 export function isString(input: any): input is string {

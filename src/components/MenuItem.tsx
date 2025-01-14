@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { SLUG } from '~/config';
-
 import { getTextColor, hexToRGBA } from '~/modules/colors';
 import { getOptionData } from '~/modules/helpers';
 
