@@ -1,6 +1,6 @@
 import { px } from '~/modules/helpers';
 
-function Times({ size = 8 }: { size?: number }): JSX.Element {
+function Times({ size = 8 }: { size?: number }) {
   return (
     <svg
       height={px(size)}

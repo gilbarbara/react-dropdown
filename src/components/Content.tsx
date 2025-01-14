@@ -2,7 +2,6 @@ import { MouseEvent } from 'react';
 import styled from '@emotion/styled';
 
 import { SLUG } from '~/config';
-
 import { getTextColor } from '~/modules/colors';
 import { getComponentMinHeight, getOptionData } from '~/modules/helpers';
 

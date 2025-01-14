@@ -8,38 +8,17 @@ import {
   RefObject,
 } from 'react';
 
-export type AnyObject<T = any> = Record<string, T>;
-
 export type Actions = 'close' | 'open' | 'toggle';
-export type OptionKeys = 'label' | 'value';
-export type Direction = 'ltr' | 'rtl';
-export type Position = 'auto' | 'bottom' | 'top';
 
-export interface Option {
-  [key: string]: any;
-  disabled?: boolean;
-  label: ReactNode;
-  style?: CSSProperties;
-  value: string | number;
-}
+export type AnyObject<T = any> = Record<string, T>;
+export type Direction = 'ltr' | 'rtl';
+export type OptionKeys = 'label' | 'value';
+export type Position = 'auto' | 'bottom' | 'top';
 
 export interface ComponentProps {
   methods: Methods;
   props: Props;
   state: State;
-}
-
-export interface InputComponentProps extends ComponentProps {
-  inputRef: RefObject<HTMLInputElement>;
-}
-
-export interface ItemComponentProps extends ComponentProps {
-  item: Option;
-  itemIndex: number;
-}
-
-export interface OptionComponentProps extends ComponentProps {
-  item: Option;
 }
 
 export interface HiddenInput {
@@ -65,6 +44,15 @@ export interface HiddenInput {
    * @default ','
    */
   separator?: string;
+}
+
+export interface InputComponentProps extends ComponentProps {
+  inputRef: RefObject<HTMLInputElement | null>;
+}
+
+export interface ItemComponentProps extends ComponentProps {
+  item: Option;
+  itemIndex: number;
 }
 
 export interface Labels {
@@ -102,6 +90,18 @@ export interface Methods {
     event?: Event | MouseEvent<HTMLElement> | KeyboardEvent<HTMLDivElement>,
   ) => void;
   toggleAll: () => void;
+}
+
+export interface Option {
+  [key: string]: any;
+  disabled?: boolean;
+  label: ReactNode;
+  style?: CSSProperties;
+  value: string | number;
+}
+
+export interface OptionComponentProps extends ComponentProps {
+  item: Option;
 }
 
 export interface Props {
@@ -267,6 +267,11 @@ export interface Props {
    */
   placeholder?: string;
   /**
+   * Search the options.
+   * @default true
+   */
+  searchable?: boolean;
+  /**
    * The field to search.
    * @default 'label'
    */
@@ -275,11 +280,6 @@ export interface Props {
    * Overrides the internal search function.
    */
   searchFn?: (props: ComponentProps) => Option[];
-  /**
-   * Search the options.
-   * @default true
-   */
-  searchable?: boolean;
   /**
    * The placeholder on the search field if a value is selected.
    * (If searchable is true)

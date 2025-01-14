@@ -2,11 +2,10 @@ import { MouseEvent } from 'react';
 import styled from '@emotion/styled';
 
 import { SLUG } from '~/config';
-
+import Times from '~/icons/Times';
 import { getTextColor } from '~/modules/colors';
 import { getComponentMinHeight } from '~/modules/helpers';
 
-import Times from '~/icons/Times';
 import { ComponentProps, Styles } from '~/types';
 
 const StyledClear = styled.div<Styles>`

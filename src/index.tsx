@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import isEqual from '@gilbarbara/deep-equal';
 
 import { defaultProps, SLUG, styledOptions } from '~/config';
-
 import { hexToRGBA } from '~/modules/colors';
 import {
   canUseDOM,
@@ -76,7 +75,7 @@ const ReactDropdown = styled(
 });
 
 export class Dropdown extends Component<Props, State> {
-  private readonly dropdownRef: RefObject<HTMLDivElement>;
+  private readonly dropdownRef: RefObject<HTMLDivElement | null>;
   private readonly methods: Methods;
 
   static defaultProps = defaultProps;
@@ -318,10 +317,7 @@ export class Dropdown extends Component<Props, State> {
     const { search, status } = this.state;
     const { clearOnClose, closeOnScroll, closeOnSelect, open, options } = this.props;
     const target = event && ((event.target || event.currentTarget) as HTMLElement);
-    const isMenuTarget =
-      target &&
-      target.offsetParent &&
-      target.offsetParent.classList.contains('react-dropdown-menu');
+    const isMenuTarget = target?.offsetParent?.classList.contains('react-dropdown-menu');
 
     if (!closeOnScroll && !closeOnSelect && event && isMenuTarget) {
       return;
@@ -378,7 +374,7 @@ export class Dropdown extends Component<Props, State> {
       return secondaryPlaceholder.length;
     }
 
-    return values.length ? 3 : placeholder?.length || 0;
+    return (values.length ? 3 : placeholder?.length) ?? 0;
   };
 
   getLabels = () => {

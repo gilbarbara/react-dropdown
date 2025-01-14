@@ -2,7 +2,6 @@ import { MouseEvent } from 'react';
 import styled from '@emotion/styled';
 
 import { SLUG } from '~/config';
-
 import { getTextColor, hexToRGBA } from '~/modules/colors';
 import { matchOptions } from '~/modules/helpers';
 
@@ -25,7 +24,7 @@ const StyledCreate = styled.div<Styles>`
   }
 `;
 
-export default function Create(props: ComponentProps): JSX.Element | null {
+export default function Create(props: ComponentProps) {
   const {
     methods: { createItem, getLabels, getStyles },
     props: { create, options },

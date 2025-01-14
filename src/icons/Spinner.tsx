@@ -1,6 +1,6 @@
 import { px } from '~/modules/helpers';
 
-export default function Spinner({ size = 12 }: { size?: number }): JSX.Element {
+export default function Spinner({ size = 12 }: { size?: number }) {
   return (
     <svg
       height={px(size)}

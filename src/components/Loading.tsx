@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 
 import { SLUG } from '~/config';
-
+import Spinner from '~/icons/Spinner';
 import { getTextColor } from '~/modules/colors';
 import { getComponentMinHeight } from '~/modules/helpers';
 
-import Spinner from '~/icons/Spinner';
 import { ComponentProps, Styles } from '~/types';
 
 const StyledLoading = styled.div<Styles>`

@@ -15,12 +15,8 @@ export const options = [
 
 export const optionsAlt = [...options, { label: 'Four', value: 4 }];
 
-export function searchFn({ methods, props, state }: ComponentProps) {
-  const { getOptionData } = methods;
-  const { options: optionsProps, searchBy = 'label' } = props;
-  const regexp = new RegExp(methods.safeString(state.search), 'i');
-
-  return optionsProps.filter(item => regexp.test(`${getOptionData(item, searchBy)}`));
+export function Clear() {
+  return <div data-component-name="CustomClear">X</div>;
 }
 
 export function Content(props: ComponentProps) {
@@ -48,10 +44,6 @@ export function Content(props: ComponentProps) {
   );
 }
 
-export function Clear() {
-  return <div data-component-name="CustomClear">X</div>;
-}
-
 export function Handle() {
   return <div data-component-name="CustomHandle">⬇</div>;
 }
@@ -60,22 +52,8 @@ export function Input({ inputRef, methods: { setSearch } }: InputComponentProps)
   return <input ref={inputRef} data-component-name="CustomInput" onChange={setSearch} />;
 }
 
-export function MenuItem(props: ItemComponentProps) {
-  const { item, methods } = props;
-
-  const handleSelect = () => {
-    if (methods.isSelected(item)) {
-      methods.removeItem(null, item, false);
-    } else {
-      methods.addItem(item);
-    }
-  };
-
-  return (
-    <div data-component-name="CustomItem" onClick={handleSelect} role="presentation">
-      {item.label}
-    </div>
-  );
+export function Loader() {
+  return <div data-component-name="CustomLoader">🔁</div>;
 }
 
 export function Menu(props: ComponentProps) {
@@ -118,8 +96,22 @@ export function Menu(props: ComponentProps) {
   );
 }
 
-export function Loader() {
-  return <div data-component-name="CustomLoader">🔁</div>;
+export function MenuItem(props: ItemComponentProps) {
+  const { item, methods } = props;
+
+  const handleSelect = () => {
+    if (methods.isSelected(item)) {
+      methods.removeItem(null, item, false);
+    } else {
+      methods.addItem(item);
+    }
+  };
+
+  return (
+    <div data-component-name="CustomItem" onClick={handleSelect} role="presentation">
+      {item.label}
+    </div>
+  );
 }
 
 export function NoData() {
@@ -128,6 +120,14 @@ export function NoData() {
 
 export function Option({ item }: OptionComponentProps) {
   return <div data-component-name="CustomOption">{item.label}</div>;
+}
+
+export function searchFn({ methods, props, state }: ComponentProps) {
+  const { getOptionData } = methods;
+  const { options: optionsProps, searchBy = 'label' } = props;
+  const regexp = new RegExp(methods.safeString(state.search), 'i');
+
+  return optionsProps.filter(item => regexp.test(`${getOptionData(item, searchBy)}`));
 }
 
 export function Separator() {

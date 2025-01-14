@@ -7,5 +7,5 @@ expect.extend(matchers);
 
 configure({ testIdAttribute: 'data-component-name' });
 
-// eslint-disable-next-line vitest/prefer-spy-on
+// eslint-disable-next-line @vitest/prefer-spy-on
 Element.prototype.scrollIntoView = vi.fn();
