@@ -75,7 +75,7 @@ const ReactDropdown = styled(
 });
 
 export class Dropdown extends Component<Props, State> {
-  private readonly dropdownRef: RefObject<HTMLDivElement | null>;
+  private readonly dropdownRef: RefObject<HTMLDivElement>;
   private readonly methods: Methods;
 
   static defaultProps = defaultProps;
